@@ -1,5 +1,6 @@
 package com.cloudbees.seatallocationsystem.model;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 

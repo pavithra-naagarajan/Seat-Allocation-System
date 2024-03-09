@@ -3,29 +3,26 @@ package com.cloudbees.seatallocationsystem.service;
 import com.cloudbees.seatallocationsystem.model.SeatAllocationReceipt;
 import com.cloudbees.seatallocationsystem.testutil.SeatAllocationTestUtil;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+
 public class SeatAllocationServiceTest {
-
-
-    @MockBean
+    @Mock
     private SeatAllocationService seatAllocationService;
 
-    @Test
-    void given_validReceiptId_when_save_then_shouldBeSaved(){
-        SeatAllocationReceipt seatAllocationReceipt = SeatAllocationTestUtil.getSeatAllocationReceipt();
-        seatAllocationService.saveSeatAllocation(SeatAllocationTestUtil.getSeatAllocationDTO());
-        Assertions.assertNotNull(seatAllocationReceipt.getId());
+    @BeforeEach
+    void setUp(){
+        MockitoAnnotations.openMocks(this);
     }
+
+
 
     @Test
     void given_validReceiptId_when_findById_then_shouldReturnReceipt(){

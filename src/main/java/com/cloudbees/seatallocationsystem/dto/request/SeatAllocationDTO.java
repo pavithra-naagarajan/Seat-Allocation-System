@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class SeatAllocationDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private UserDTO user;
+    private String userEmailId;
     private String fromStation;
     private String toStation;
     private BigDecimal price;
@@ -30,12 +30,12 @@ public class SeatAllocationDTO implements Serializable {
         this.toStation = toStation;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public String getUserEmailId() {
+        return userEmailId;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setUserEmailId(String userEmailId) {
+        this.userEmailId = userEmailId;
     }
 
     public BigDecimal getPrice() {

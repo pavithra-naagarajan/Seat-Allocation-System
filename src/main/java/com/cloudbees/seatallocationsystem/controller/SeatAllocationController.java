@@ -26,18 +26,22 @@ public class SeatAllocationController {
 
 
     @PostMapping
-    public ResponseEntity<SeatAllocationReceipt> doGetBatchByBatchCurrActId(@RequestBody SeatAllocationDTO seatAllocation){
-        SeatAllocationReceipt seatAllocationReceipt = seatAllocationService.saveSeatAllocation(seatAllocation);
-        return ResponseEntity.ok(seatAllocationReceipt);
+    public ResponseEntity<? super SeatAllocationReceipt> doGetBatchByBatchCurrActId(@RequestBody SeatAllocationDTO seatAllocation){
+        try {
+            SeatAllocationReceipt seatAllocationReceipt = seatAllocationService.saveSeatAllocation(seatAllocation);
+            return ResponseEntity.ok(seatAllocationReceipt);
+        }catch(IllegalArgumentException exception){
+            return ResponseEntity.unprocessableEntity().body(exception.getMessage());
+        }
     }
 
-    @GetMapping("/user/{receiptId}")
+    @GetMapping("/{receiptId}")
     public ResponseEntity<SeatAllocationReceipt> getReceiptById(@PathVariable Long receiptId){
         Optional<SeatAllocationReceipt> receipt = seatAllocationService.findSeatAllocationByReceiptId(receiptId);
         return receipt.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{section}")
+    @GetMapping("/section/{section}")
     public ResponseEntity<List<SeatAllocationReceipt>> getSeatAllocationsBySection(@PathVariable String section){
         List<SeatAllocationReceipt> seatAllocations = seatAllocationService.getSeatAllocationsBySection(section);
         return seatAllocations.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(seatAllocations);
@@ -50,13 +54,13 @@ public class SeatAllocationController {
         }catch (IllegalArgumentException exception){
             return ResponseEntity.unprocessableEntity().body(exception.getMessage());
         }
-        return ResponseEntity.ok("User removed successfully");
+        return ResponseEntity.ok("Seat allocation removed successfully");
     }
 
     @PutMapping("/{receiptId}")
     public ResponseEntity<String> updateSeat(@PathVariable Long receiptId, @RequestBody  SeatAllocationDTO seatAllocationDTO){
        Boolean updatedSeatAllocation= seatAllocationService.updateSeatNumber(receiptId,seatAllocationDTO);
-        return updatedSeatAllocation? ResponseEntity.ok("User seat details updated successfully"):
+        return updatedSeatAllocation? ResponseEntity.ok("Seat allocation details of user updated successfully"):
                 ResponseEntity.ok("User not allotted with seat");
     }
 }

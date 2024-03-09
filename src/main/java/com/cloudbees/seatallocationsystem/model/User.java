@@ -1,9 +1,7 @@
 package com.cloudbees.seatallocationsystem.model;
 
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-@Component
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -11,6 +9,11 @@ public class User implements Serializable {
     private String lastName;
     private String emailId;
 
+    public User(String firstName, String lastName, String emailId){
+        this.firstName =firstName;
+        this.lastName=lastName;
+        this.emailId=emailId;
+    }
 
     public String getFirstName() {
         return firstName;

@@ -10,10 +10,7 @@ public class SeatAllocationTestUtil {
 
 
     public static User getUser(){
-        User user = new User();
-        user.setFirstName("Pavithra");
-        user.setLastName("Nagarajan");
-        user.setEmailId("Pavithra@gmail.com");
+        User user = new User("Pavithra","Nagarajan","pavithra123@gmail.com");
         return user;
     }
     public static SeatAllocationReceipt getSeatAllocationReceipt() {

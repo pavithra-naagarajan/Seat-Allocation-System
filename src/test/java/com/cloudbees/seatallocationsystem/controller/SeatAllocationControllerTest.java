@@ -5,11 +5,8 @@ import com.cloudbees.seatallocationsystem.service.SeatAllocationService;
 import com.cloudbees.seatallocationsystem.testutil.SeatAllocationTestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -43,14 +40,14 @@ public class SeatAllocationControllerTest {
     void given_ValidReceiptId_when_getReceiptById_thenReturnSuccess() throws Exception {
         SeatAllocationReceipt seatAllocationReceipt = SeatAllocationTestUtil.getSeatAllocationReceipt();
         when(seatAllocationService.findSeatAllocationByReceiptId(1L)).thenReturn(Optional.of(seatAllocationReceipt));
-        this.mockMvc.perform(get(BASE_URI + "/user/1")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get(BASE_URI + "/1")).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     void given_inValidReceiptId_when_getReceiptById_thenReturnNotFound() throws Exception {
         SeatAllocationReceipt seatAllocationReceipt = SeatAllocationTestUtil.getSeatAllocationReceipt();
         when(seatAllocationService.findSeatAllocationByReceiptId(1L)).thenReturn(Optional.of(seatAllocationReceipt));
-        this.mockMvc.perform(get(BASE_URI + "/user/10")).andDo(print()).andExpect(status().isNotFound());
+        this.mockMvc.perform(get(BASE_URI + "/10")).andDo(print()).andExpect(status().isNotFound());
     }
 
     @Test

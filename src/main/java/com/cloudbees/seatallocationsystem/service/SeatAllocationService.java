@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SeatAllocationService {
-    SeatAllocationReceipt saveSeatAllocation(SeatAllocationDTO seatAllocation);
+    SeatAllocationReceipt saveSeatAllocation(SeatAllocationDTO seatAllocation) throws IllegalArgumentException;
 
     Optional<SeatAllocationReceipt> findSeatAllocationByReceiptId(Long receiptId);
 
