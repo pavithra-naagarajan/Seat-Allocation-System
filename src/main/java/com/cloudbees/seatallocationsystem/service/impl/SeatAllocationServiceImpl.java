@@ -19,15 +19,7 @@ public class SeatAllocationServiceImpl implements SeatAllocationService {
     private Long id=1L;
     @Override
     public SeatAllocationReceipt saveSeatAllocation(SeatAllocationDTO seatAllocation) {
-        SeatAllocationReceipt seatAllocationReceipt = new SeatAllocationReceipt();
-        seatAllocationReceipt.setId(id);
-        seatAllocationReceipt.setFromStation(seatAllocation.getFromStation());
-        seatAllocationReceipt.setToStation(seatAllocation.getToStation());
-        seatAllocationReceipt.setPrice(seatAllocation.getPrice());
-        seatAllocationReceipt.setSection(seatAllocation.getSection());
-        seatAllocationReceipt.setSeatNumber(seatAllocation.getSeatNumber());
-        seatAllocationReceipt.setUser(convertDTOToUser(seatAllocation.getUser()));
-
+        SeatAllocationReceipt seatAllocationReceipt = generateSeatAllocationReceipt(seatAllocation);
         seatAllocationReceiptMap.put(id,seatAllocationReceipt);
         return seatAllocationReceiptMap.get(id++);
     }
@@ -37,12 +29,44 @@ public class SeatAllocationServiceImpl implements SeatAllocationService {
         return Optional.ofNullable(seatAllocationReceiptMap.get(receiptId));
     }
     @Override
-    public List<SeatAllocationReceipt> seatAllocationsBySection(String section){
+    public List<SeatAllocationReceipt> getSeatAllocationsBySection(String section){
         List<SeatAllocationReceipt> receipts = new ArrayList<>(seatAllocationReceiptMap.values());
         return receipts.stream().filter(receipt -> receipt.getSection().equals(section)).toList();
     }
 
+    @Override
+    public void removeSeatAllocation(Long receiptId) throws IllegalArgumentException{
+           Optional<SeatAllocationReceipt> seatAllocation = findSeatAllocationByReceiptId(receiptId);
+           if(seatAllocation.isPresent()){
+               seatAllocationReceiptMap.remove(receiptId);
+           }
+           else{
+               throw new IllegalArgumentException("User not allotted with seat");
+           }
+    }
 
+    @Override
+    public Boolean updateSeatNumber(Long receiptId, SeatAllocationDTO seatAllocationDTO) {
+        Optional<SeatAllocationReceipt> seatAllocationReceipt = findSeatAllocationByReceiptId(receiptId);
+        if(seatAllocationReceipt.isPresent()) {
+            seatAllocationReceipt.get().setSeatNumber(seatAllocationDTO.getSeatNumber());
+            seatAllocationReceipt.get().setSection(seatAllocationDTO.getSection());
+            seatAllocationReceiptMap.put(seatAllocationReceipt.get().getId(), seatAllocationReceipt.get());
+            return true;
+        }
+        return false;
+    }
+    private SeatAllocationReceipt generateSeatAllocationReceipt(SeatAllocationDTO seatAllocation) {
+        SeatAllocationReceipt seatAllocationReceipt = new SeatAllocationReceipt();
+        seatAllocationReceipt.setId(id);
+        seatAllocationReceipt.setFromStation(seatAllocation.getFromStation());
+        seatAllocationReceipt.setToStation(seatAllocation.getToStation());
+        seatAllocationReceipt.setPrice(seatAllocation.getPrice());
+        seatAllocationReceipt.setSection(seatAllocation.getSection());
+        seatAllocationReceipt.setSeatNumber(seatAllocation.getSeatNumber());
+        seatAllocationReceipt.setUser(convertDTOToUser(seatAllocation.getUser()));
+        return seatAllocationReceipt;
+    }
     private User convertDTOToUser(UserDTO userDTO) {
         User user=new User();
         user.setFirstName(userDTO.getFirstName());

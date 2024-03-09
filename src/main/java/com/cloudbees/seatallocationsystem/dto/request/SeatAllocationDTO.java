@@ -1,8 +1,6 @@
 package com.cloudbees.seatallocationsystem.dto.request;
 
 
-import com.cloudbees.seatallocationsystem.model.User;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 

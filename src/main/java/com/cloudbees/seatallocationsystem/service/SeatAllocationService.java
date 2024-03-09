@@ -12,5 +12,9 @@ public interface SeatAllocationService {
 
     Optional<SeatAllocationReceipt> findSeatAllocationByReceiptId(Long receiptId);
 
-    List<SeatAllocationReceipt> seatAllocationsBySection(String section);
+    List<SeatAllocationReceipt> getSeatAllocationsBySection(String section);
+
+    void removeSeatAllocation(Long receiptId) throws IllegalArgumentException;
+
+    Boolean updateSeatNumber(Long userReceiptId,SeatAllocationDTO seatAllocationDTO);
 }
