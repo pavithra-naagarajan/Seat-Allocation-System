@@ -54,9 +54,6 @@ public class SeatAllocationReceipt implements Serializable {
         this.section = section;
     }
 
-    public User getUser() {
-        return user;
-    }
 
     public void setUser(User user) {
         this.user = user;
