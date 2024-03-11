@@ -26,7 +26,7 @@ public class SeatAllocationController {
 
 
     @PostMapping
-    public ResponseEntity<? super SeatAllocationReceipt> doGetBatchByBatchCurrActId(@RequestBody SeatAllocationDTO seatAllocation){
+    public ResponseEntity<? super SeatAllocationReceipt> saveSeatAllocationReceipt(@RequestBody SeatAllocationDTO seatAllocation){
         try {
             SeatAllocationReceipt seatAllocationReceipt = seatAllocationService.saveSeatAllocation(seatAllocation);
             return ResponseEntity.ok(seatAllocationReceipt);
