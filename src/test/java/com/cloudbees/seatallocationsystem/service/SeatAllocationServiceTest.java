@@ -2,18 +2,12 @@ package com.cloudbees.seatallocationsystem.service;
 
 import com.cloudbees.seatallocationsystem.model.SeatAllocationReceipt;
 import com.cloudbees.seatallocationsystem.testutil.SeatAllocationTestUtil;
-import com.cloudbees.seatallocationsystem.util.SeatAllocationServiceUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 
@@ -51,5 +45,9 @@ public class SeatAllocationServiceTest {
         Assertions.assertEquals(2133, afterSeatNumber);
         Assertions.assertEquals("A", afterSection);
     }
-
+    @Test
+    void removeSeatAllocation_ExistingReceipt() {
+        when(seatAllocationService.findSeatAllocationByReceiptId(1L)).thenReturn(Optional.of(SeatAllocationTestUtil.getSeatAllocationReceipt()));
+        seatAllocationService.removeSeatAllocation(1L);
+    }
 }

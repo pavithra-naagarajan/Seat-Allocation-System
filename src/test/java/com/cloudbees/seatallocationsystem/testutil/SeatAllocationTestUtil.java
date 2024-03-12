@@ -27,6 +27,7 @@ public class SeatAllocationTestUtil {
         SeatAllocationDTO seatAllocationDTO = new SeatAllocationDTO();
         seatAllocationDTO.setSeatNumber(332L);
         seatAllocationDTO.setSection("A");
+        seatAllocationDTO.setUserEmailId("pavithra123@gmail.com");
         return  seatAllocationDTO;
     }
 }
